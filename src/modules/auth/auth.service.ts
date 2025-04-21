@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { User } from 'src/user/entities/user.entity';
 import * as bcrypt from 'bcrypt';
-import { UserService } from 'src/user/user.service';
 import { JwtService } from '@nestjs/jwt';
 import { jwtConstants } from './passport/jwt.constants';
+import { UserService } from '../user/user.service';
+import { User } from '../user/user.entity';
 
 @Injectable()
 export class AuthService {
@@ -26,6 +26,6 @@ export class AuthService {
       expiresIn: jwtConstants.expirationTime,
       secret: jwtConstants.secret,
     });
-    return { message: 'Login successful', access_token };
+    return { message: 'Login successful', access_token: access_token };
   }
 }
