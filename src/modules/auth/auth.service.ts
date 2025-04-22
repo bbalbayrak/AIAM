@@ -20,12 +20,12 @@ export class AuthService {
     }
   }
 
-  async login(user: User) {
-    const payload = { sub: user.user_id, name: user.name, role: user.role };
-    const access_token = await this.jwtService.signAsync(payload, {
-      expiresIn: jwtConstants.expirationTime,
-      secret: jwtConstants.secret,
-    });
-    return { message: 'Login successful', access_token: access_token };
-  }
+  // async login(user: User) {
+  //   const payload = { sub: user.user_id, name: user.name, role: user.role };
+  //   const access_token = await this.jwtService.signAsync(payload, {
+  //     expiresIn: jwtConstants.expirationTime,
+  //     secret: jwtConstants.secret,
+  //   });
+  //   return { message: 'Login successful', access_token: access_token };
+  // }
 }

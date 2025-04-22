@@ -10,6 +10,7 @@ import { DatabaseModule } from './config/database/database.module';
   imports: [
     ConfigModule.forRoot({ isGlobal: true }),
     DatabaseModule,
+    UserModule,
     AuthModule,
     UserModule,
   ],

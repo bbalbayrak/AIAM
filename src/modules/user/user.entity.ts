@@ -1,5 +1,6 @@
 import { Column, DataType, Model, Table } from 'sequelize-typescript';
-import { UserType } from './userType';
+import { UserStatus, UserType } from './userType';
+import { UserService } from './user.service';
 
 @Table
 export class User extends Model<User> {
@@ -55,4 +56,10 @@ export class User extends Model<User> {
     defaultValue: false,
   })
   verified: boolean;
+  @Column({
+    type: DataType.ENUM,
+    values: Object.values(UserStatus),
+    allowNull: false,
+  })
+  role: UserStatus;
 }

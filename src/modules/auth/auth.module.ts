@@ -7,9 +7,12 @@ import { LocalStrategy } from './passport/local.strategy';
 import { JwtStrategy } from './passport/jwt.strategy';
 import { APP_INTERCEPTOR } from '@nestjs/core';
 import { JwtExpiredFilter } from './passport/jwtExpire.filter';
+import { UserService } from '../user/user.service';
+import { UserModule } from '../user/user.module';
 
 @Module({
   imports: [
+    UserModule,
     PassportModule,
     JwtModule.register({
       secret: process.env.JWTSECRET,
@@ -17,6 +20,7 @@ import { JwtExpiredFilter } from './passport/jwtExpire.filter';
     }),
   ],
   providers: [
+    UserService,
     AuthService,
     LocalStrategy,
     JwtStrategy,
