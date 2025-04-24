@@ -7,12 +7,12 @@ export class AuthDto {
   @IsNotEmpty({
     message: 'Email is required',
   })
-  private readonly email: string;
+  readonly email: string;
   @IsString({
     message: 'Password must be a string',
   })
   @IsNotEmpty({
     message: 'Email is required',
   })
-  private readonly password: string;
+  readonly password: string;
 }

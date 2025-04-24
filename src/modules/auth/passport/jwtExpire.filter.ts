@@ -10,7 +10,7 @@ export class JwtExpiredFilter implements ExceptionFilter {
 
     response.status(status).json({
       statusCode: status,
-      message: 'JWT token has expired!', // Custom error message for token expiration
+      message: 'JWT token has expired!',
     });
   }
 }

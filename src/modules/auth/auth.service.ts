@@ -1,9 +1,10 @@
-import { Injectable } from '@nestjs/common';
+import { ForbiddenException, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { jwtConstants } from './passport/jwt.constants';
 import { UserService } from '../user/user.service';
 import { User } from '../user/user.entity';
+import { AuthDto } from './dto/auth.dto';
 
 @Injectable()
 export class AuthService {
@@ -20,12 +21,28 @@ export class AuthService {
     }
   }
 
-  // async login(user: User) {
-  //   const payload = { sub: user.user_id, name: user.name, role: user.role };
-  //   const access_token = await this.jwtService.signAsync(payload, {
-  //     expiresIn: jwtConstants.expirationTime,
-  //     secret: jwtConstants.secret,
-  //   });
-  //   return { message: 'Login successful', access_token: access_token };
-  // }
+  async login(authDto: AuthDto) {
+    const user = await this.userService.findByEmail(authDto.email);
+    if (!user) {
+      return { message: 'User not found' };
+    }
+    const passwdMatch = await bcrypt.compare(
+      authDto.password.trim(),
+      user.password.trim(),
+    );
+
+    if (!passwdMatch) {
+      throw new ForbiddenException('Incorrect Password !');
+    }
+    const access_token = await this.signToken(user.id, user.email, user.role);
+    return { message: 'Login successful', access_token: access_token };
+  }
+
+  signToken(userId: number, email: string, role: string) {
+    const payload = { userId: userId, email: email, role: role };
+    return this.jwtService.signAsync(payload, {
+      expiresIn: jwtConstants.expirationTime,
+      secret: jwtConstants.secret,
+    });
+  }
 }

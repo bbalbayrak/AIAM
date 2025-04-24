@@ -20,10 +20,10 @@ export class UserService {
     return user;
   }
 
-  //   async getUserById(user_id: number): Promise<User | null> {
-  //     const user = await this.userRepository.findOne<User>({
-  //       where: { user_id: user_id },
-  //     });
-  //     return user;
-  //   }
+  async getUserById(user_id: number): Promise<User | null> {
+    const user = await this.userRepository.findOne<User>({
+      where: { id: user_id },
+    });
+    return user;
+  }
 }
