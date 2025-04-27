@@ -9,6 +9,7 @@ import {
 import { AuthService } from './auth.service';
 import { LocalAuthGuard } from './passport/local-auth.guard';
 import { AuthDto } from './dto/auth.dto';
+import { UserDto } from '../user/dto/user.dto';
 
 @Controller('auth')
 export class AuthController {
@@ -20,9 +21,9 @@ export class AuthController {
   async Login(@Body() user: AuthDto) {
     return await this.authService.login(user);
   }
-  // @Post('register')
-  // @HttpCode(HttpStatus.CREATED)
-  // async Register(@Body() user: ) {
-  //   return await this.authService.register(user);
-  // }
+  @Post('register')
+  @HttpCode(HttpStatus.CREATED)
+  async Register(@Body() user: UserDto) {
+    return await this.authService.register(user);
+  }
 }

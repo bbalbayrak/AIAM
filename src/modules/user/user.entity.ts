@@ -27,32 +27,32 @@ export class User extends Model<User> {
   companyName: string;
   @Column({
     type: DataType.STRING,
-    allowNull: false,
+    allowNull: true,
   })
   contactName: string;
   @Column({
     type: DataType.STRING,
-    allowNull: false,
+    allowNull: true,
   })
   phone: string;
   @Column({
     type: DataType.STRING,
-    allowNull: false,
+    allowNull: true,
   })
   avatarUrl: string;
   @Column({
     type: DataType.TEXT,
-    allowNull: false,
+    allowNull: true,
   })
   bio: string;
   @Column({
     type: DataType.STRING,
-    allowNull: false,
+    allowNull: true,
   })
   websiteUrl: string;
   @Column({
     type: DataType.BOOLEAN,
-    allowNull: false,
+    allowNull: true,
     defaultValue: false,
   })
   verified: boolean;
@@ -60,6 +60,7 @@ export class User extends Model<User> {
     type: DataType.ENUM,
     values: Object.values(UserStatus),
     allowNull: false,
+    defaultValue: UserStatus.USER,
   })
   role: UserStatus;
 }

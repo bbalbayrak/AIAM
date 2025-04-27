@@ -3,8 +3,8 @@ import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { jwtConstants } from './passport/jwt.constants';
 import { UserService } from '../user/user.service';
-import { User } from '../user/user.entity';
 import { AuthDto } from './dto/auth.dto';
+import { UserDto } from '../user/dto/user.dto';
 
 @Injectable()
 export class AuthService {
@@ -19,6 +19,15 @@ export class AuthService {
     } else {
       return null;
     }
+  }
+
+  async register(user: UserDto) {
+    const existingUser = await this.userService.findByEmail(user.email);
+    if (existingUser) {
+      throw new ForbiddenException('User already exists !');
+    }
+    const newUser = await this.userService.createUser(user);
+    return newUser;
   }
 
   async login(authDto: AuthDto) {
