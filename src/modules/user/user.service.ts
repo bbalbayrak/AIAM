@@ -35,6 +35,14 @@ export class UserService {
   async getUserById(user_id: number): Promise<User | null> {
     const user = await this.userRepository.findOne<User>({
       where: { id: user_id },
+      attributes: { exclude: ['password'] },
+    });
+    return user;
+  }
+
+  async getCurrentUserInfo(user_id: number): Promise<User | null> {
+    const user = await this.userRepository.findOne<User>({
+      where: { id: user_id },
     });
     return user;
   }

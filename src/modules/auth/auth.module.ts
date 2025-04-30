@@ -9,6 +9,8 @@ import { APP_INTERCEPTOR } from '@nestjs/core';
 import { JwtExpiredFilter } from './passport/jwtExpire.filter';
 import { UserService } from '../user/user.service';
 import { UserModule } from '../user/user.module';
+import * as dotenv from 'dotenv';
+dotenv.config();
 
 @Module({
   imports: [
