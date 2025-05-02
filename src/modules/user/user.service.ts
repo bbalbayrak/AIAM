@@ -19,11 +19,12 @@ export class UserService {
 
     return await this.userRepository.create<User>(hashedUser);
   }
-
+  //For Admin
   async getAllUsers(): Promise<User[]> {
     const users = await this.userRepository.findAll<User>();
     return users;
   }
+
   //For JWT strategy
   async findByEmail(email: string): Promise<User | null> {
     const user = await this.userRepository.findOne<User>({

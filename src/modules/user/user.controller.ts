@@ -8,8 +8,11 @@ import {
 } from '@nestjs/common';
 import { UserService } from './user.service';
 import { JwtAuthGuard } from '../auth/passport/jwt.guard';
+import { RolesGuard } from 'src/decorators/roles.guard';
+import { Roles } from 'src/decorators/roles.decorator';
+import { UserStatus } from './userType';
 
-@UseGuards(JwtAuthGuard)
+@UseGuards(JwtAuthGuard, RolesGuard)
 @Controller('user')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -24,6 +27,17 @@ export class UserController {
     return res.status(HttpStatus.OK).json({
       message: 'User information retrieved successfully',
       data: userWithoutPassword,
+    });
+  }
+
+  //For admin use only
+  @Get('all')
+  @Roles(UserStatus.ADMIN)
+  async getAllUsers(@Req() req: any, @Res() res: any) {
+    const users = await this.userService.getAllUsers();
+    return res.status(HttpStatus.OK).json({
+      message: 'All users retrieved successfully',
+      data: users,
     });
   }
 }
