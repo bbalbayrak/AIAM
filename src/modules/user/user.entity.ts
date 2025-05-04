@@ -1,6 +1,7 @@
-import { Column, DataType, Model, Table } from 'sequelize-typescript';
+import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
 import { UserStatus, UserType } from './userType';
 import { UserService } from './user.service';
+import { Agency } from '../agency/agency.entity';
 
 @Table
 export class User extends Model<User> {
@@ -63,4 +64,7 @@ export class User extends Model<User> {
     defaultValue: UserStatus.USER,
   })
   role: UserStatus;
+
+  @HasMany(() => Agency)
+  agencies: Agency[];
 }
