@@ -1,4 +1,4 @@
-import { AGENCY_REPOSITORY, USER_REPOSITORY } from 'src/config/constants';
+import { AGENCY_REPOSITORY } from 'src/config/constants';
 import { Agency } from './agency.entity';
 
 export const AgencyProvider = [
