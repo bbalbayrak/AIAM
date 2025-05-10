@@ -7,6 +7,7 @@ import { ConfigModule } from '@nestjs/config';
 import { DatabaseModule } from './config/database/database.module';
 import { AgencyModule } from './modules/agency/agency.module';
 import { BusinessModule } from './modules/business/business.module';
+import { ProjectModule } from './modules/project/project.module';
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { BusinessModule } from './modules/business/business.module';
     UserModule,
     AgencyModule,
     BusinessModule,
+    ProjectModule,
   ],
   controllers: [AppController],
   providers: [AppService],
