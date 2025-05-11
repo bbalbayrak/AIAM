@@ -5,8 +5,10 @@ import {
   DataType,
   ForeignKey,
   BelongsTo,
+  HasMany,
 } from 'sequelize-typescript';
 import { User } from '../user/user.entity';
+import { Proposal } from '../proposal/proposal.entity';
 
 @Table
 export class Agency extends Model<Agency> {
@@ -93,4 +95,7 @@ export class Agency extends Model<Agency> {
     allowNull: true,
   })
   certifications: Record<string, any>;
+
+  @HasMany(() => Proposal)
+  proposals: Proposal[];
 }

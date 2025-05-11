@@ -3,11 +3,13 @@ import {
   Column,
   DataType,
   ForeignKey,
+  HasMany,
   Model,
   Table,
 } from 'sequelize-typescript';
 import { ProjectStatus } from './status.enum';
 import { Business } from '../business/business.entity';
+import { Proposal } from '../proposal/proposal.entity';
 @Table
 export class Project extends Model<Project> {
   @ForeignKey(() => Business)
@@ -55,4 +57,7 @@ export class Project extends Model<Project> {
     allowNull: true,
   })
   deadline: Date;
+
+  @HasMany(() => Proposal)
+  proposals: Proposal[];
 }
