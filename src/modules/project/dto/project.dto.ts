@@ -40,7 +40,10 @@ export class ProjectDto {
   @IsOptional()
   readonly status?: ProjectStatus;
 
-  @IsDateString({}, { message: 'Deadline must be a valid ISO date string' })
+  @IsDateString(
+    {},
+    { message: 'Deadline must be a valid date string in YYYY-MM-DD format' },
+  )
   @IsOptional()
   readonly deadline?: Date;
 }
