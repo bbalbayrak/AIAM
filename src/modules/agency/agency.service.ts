@@ -1,4 +1,9 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { AGENCY_REPOSITORY } from 'src/config/constants';
 import { Agency } from './agency.entity';
 import { AgencyDto } from './dto/agency.dto';
@@ -20,6 +25,11 @@ export class AgencyService {
     if (!isUserIdExists) {
       throw new NotFoundException('User not found');
     }
+    if (isUserIdExists.userType !== 'agency') {
+      throw new BadRequestException(
+        `Only users with type 'agency' can create an agency`,
+      );
+    }
     const newAgency = await this.agencyRepository.create<Agency>(agency);
     return newAgency;
   }
@@ -38,6 +48,11 @@ export class AgencyService {
     const isUserIdExists = await this.userService.getUserById(agency.user_id);
     if (!isUserIdExists) {
       throw new NotFoundException('User not found');
+    }
+    if (isUserIdExists.userType !== 'agency') {
+      throw new BadRequestException(
+        `Only users with type 'agency' can update an agency`,
+      );
     }
     const existingAgency = await this.agencyRepository.findByPk(agency_id);
     if (!existingAgency) {

@@ -1,4 +1,9 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import {
+  BadRequestException,
+  Inject,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { BUSINESS_REPOSITORY } from 'src/config/constants';
 import { Business } from './business.entity';
 import { BusinessDto } from './dto/business.dto';
@@ -24,6 +29,11 @@ export class BusinessService {
         `User with ID ${businessDto.user_id} not found`,
       );
     }
+    if (user.userType !== 'business') {
+      throw new BadRequestException(
+        `Only users with type 'business' can create a business`,
+      );
+    }
     const newBusiness =
       await this.businessRepository.create<Business>(businessDto);
     return newBusiness;
@@ -42,6 +52,17 @@ export class BusinessService {
     businessDto: BusinessDto,
   ): Promise<Business> {
     const business = await this.businessRepository.findByPk<Business>(id);
+    const user = await this.userService.getUserById(businessDto.user_id);
+    if (!user) {
+      throw new NotFoundException(
+        `User with ID ${businessDto.user_id} not found`,
+      );
+    }
+    if (user.userType !== 'business') {
+      throw new BadRequestException(
+        `Only users with type 'business' can create a business`,
+      );
+    }
     if (!business) {
       throw new NotFoundException(`Business with ID ${id} not found`);
     }
