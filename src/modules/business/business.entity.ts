@@ -3,11 +3,13 @@ import {
   Column,
   DataType,
   ForeignKey,
+  HasMany,
   Model,
   Table,
 } from 'sequelize-typescript';
 import { User } from '../user/user.entity';
 import { CompanySize } from './companySize.enum';
+import { Project } from '../project/project.entity';
 
 @Table
 export class Business extends Model<Business> {
@@ -41,4 +43,7 @@ export class Business extends Model<Business> {
     allowNull: true,
   })
   previous_ai_experience: string;
+
+  @HasMany(() => Project)
+  projects: Project[];
 }
