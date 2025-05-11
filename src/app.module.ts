@@ -8,6 +8,7 @@ import { DatabaseModule } from './config/database/database.module';
 import { AgencyModule } from './modules/agency/agency.module';
 import { BusinessModule } from './modules/business/business.module';
 import { ProjectModule } from './modules/project/project.module';
+import { ProposalModule } from './modules/proposal/proposal.module';
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { ProjectModule } from './modules/project/project.module';
     AgencyModule,
     BusinessModule,
     ProjectModule,
+    ProposalModule,
   ],
   controllers: [AppController],
   providers: [AppService],
