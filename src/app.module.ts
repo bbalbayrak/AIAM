@@ -9,6 +9,7 @@ import { AgencyModule } from './modules/agency/agency.module';
 import { BusinessModule } from './modules/business/business.module';
 import { ProjectModule } from './modules/project/project.module';
 import { ProposalModule } from './modules/proposal/proposal.module';
+import { ContractModule } from './modules/contract/contract.module';
 
 @Module({
   imports: [
@@ -21,6 +22,7 @@ import { ProposalModule } from './modules/proposal/proposal.module';
     BusinessModule,
     ProjectModule,
     ProposalModule,
+    ContractModule,
   ],
   controllers: [AppController],
   providers: [AppService],
