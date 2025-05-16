@@ -3,6 +3,7 @@ import {
   Column,
   DataType,
   ForeignKey,
+  HasMany,
   Model,
   Table,
 } from 'sequelize-typescript';
@@ -10,6 +11,7 @@ import { Project } from '../project/project.entity';
 import { Proposal } from '../proposal/proposal.entity';
 import { Business } from '../business/business.entity';
 import { Agency } from '../agency/agency.entity';
+import { Milestone } from '../milestone/milestone.entity';
 
 export enum ContractStatus {
   ACTIVE = 'active',
@@ -82,4 +84,7 @@ export class Contract extends Model<Contract> {
     defaultValue: ContractStatus.ACTIVE,
   })
   status: ContractStatus;
+
+  @HasMany(() => Milestone)
+  milestones: Milestone[];
 }
