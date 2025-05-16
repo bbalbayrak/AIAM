@@ -7,6 +7,7 @@ import {
   HttpStatus,
   NotFoundException,
   Param,
+  ParseIntPipe,
   Post,
   Put,
   Res,
@@ -83,5 +84,34 @@ export class ProjectController {
     } catch (error) {
       throw new BadRequestException(error.message);
     }
+  }
+
+  @Get(':id/proposals')
+  async getProjectProposals(@Param('id') id: number, @Res() res: Response) {
+    const proposals = await this.projectService.getProjectProposals(id);
+    if (!proposals) {
+      throw new NotFoundException(`No proposals found for project ID ${id}`);
+    }
+    return res.status(HttpStatus.OK).json({
+      message: 'Proposals retrieved successfully',
+      data: proposals,
+    });
+  }
+
+  @Get(':id/matched')
+  async getMatchedAgencies(
+    @Param('id', ParseIntPipe) id: number,
+    @Res() res: Response,
+  ) {
+    const matchedAgencies = await this.projectService.getMatchedAgencies(id);
+    if (!matchedAgencies || matchedAgencies.length === 0) {
+      throw new NotFoundException(
+        `No matched agencies found for project ID ${id}`,
+      );
+    }
+    return res.status(HttpStatus.OK).json({
+      message: 'Matched agencies retrieved successfully',
+      data: matchedAgencies,
+    });
   }
 }

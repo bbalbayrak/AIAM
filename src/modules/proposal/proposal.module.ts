@@ -8,5 +8,6 @@ import { UserModule } from '../user/user.module';
   imports: [UserModule],
   providers: [ProposalService, ...ProposalProvider],
   controllers: [ProposalController],
+  exports: [ProposalService, ...ProposalProvider],
 })
 export class ProposalModule {}

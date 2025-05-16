@@ -66,4 +66,16 @@ export class ProposalService {
     await proposal.save();
     return proposal;
   }
+
+  async getProposalByProjectId(projectId: number): Promise<Proposal> {
+    const proposal = await this.proposalRepository.findOne<Proposal>({
+      where: { project_id: projectId },
+    });
+    if (!proposal) {
+      throw new NotFoundException(
+        `Proposal with project ID ${projectId} not found`,
+      );
+    }
+    return proposal;
+  }
 }
