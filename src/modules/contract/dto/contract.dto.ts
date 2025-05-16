@@ -9,19 +9,19 @@ import {
 } from 'class-validator';
 import { ContractStatus } from '../contract.entity';
 
-export class CreateContractDto {
-  @IsNotEmpty({ message: 'Project ID is required' })
-  @IsNumber({}, { message: 'Project ID must be an number' })
-  readonly project_id: number;
+export class ContractDto {
+  //   @IsNotEmpty({ message: 'Project ID is required' })
+  //   @IsNumber({}, { message: 'Project ID must be an number' })
+  //   readonly project_id: number;
   @IsNotEmpty({ message: 'Proposal ID is required' })
   @IsNumber({}, { message: 'Proposal ID must be an number' })
   readonly proposal_id: number;
   @IsNotEmpty({ message: 'Business ID is required' })
   @IsNumber({}, { message: 'Business ID must be an number' })
   readonly business_id: number;
-  @IsNotEmpty({ message: 'Agency ID is required' })
-  @IsNumber({}, { message: 'Agency ID must be an number' })
-  readonly agency_id: number;
+  //   @IsNotEmpty({ message: 'Agency ID is required' })
+  //   @IsNumber({}, { message: 'Agency ID must be an number' })
+  //   readonly agency_id: number;
 
   @IsOptional()
   @IsNumber({}, { message: 'Agreed budget must be a number' })
