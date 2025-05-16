@@ -10,6 +10,7 @@ import { BusinessModule } from './modules/business/business.module';
 import { ProjectModule } from './modules/project/project.module';
 import { ProposalModule } from './modules/proposal/proposal.module';
 import { ContractModule } from './modules/contract/contract.module';
+import { MilestoneModule } from './modules/milestone/milestone.module';
 
 @Module({
   imports: [
@@ -23,6 +24,7 @@ import { ContractModule } from './modules/contract/contract.module';
     ProjectModule,
     ProposalModule,
     ContractModule,
+    MilestoneModule,
   ],
   controllers: [AppController],
   providers: [AppService],
