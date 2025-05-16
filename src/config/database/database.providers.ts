@@ -6,6 +6,7 @@ import { Agency } from 'src/modules/agency/agency.entity';
 import { Business } from 'src/modules/business/business.entity';
 import { Project } from 'src/modules/project/project.entity';
 import { Proposal } from 'src/modules/proposal/proposal.entity';
+import { Contract } from 'src/modules/contract/contract.entity';
 
 export const databaseProviders = [
   {
@@ -27,7 +28,14 @@ export const databaseProviders = [
       }
       const sequelize = new Sequelize(config);
 
-      sequelize.addModels([User, Agency, Business, Project, Proposal]);
+      sequelize.addModels([
+        User,
+        Agency,
+        Business,
+        Project,
+        Proposal,
+        Contract,
+      ]);
 
       await sequelize.sync();
       return sequelize;
