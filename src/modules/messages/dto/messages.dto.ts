@@ -15,6 +15,10 @@ export class MessageDto {
   @IsNotEmpty({ message: 'Sender ID must not be empty.' })
   readonly sender_id: number;
 
+  @IsNumber({}, { message: 'Reciever ID must be a number.' })
+  @IsNotEmpty({ message: 'Reciever ID must not be empty.' })
+  readonly receiver_id: number;
+
   @IsString({ message: 'Content must be a string.' })
   @IsNotEmpty({ message: 'Content must not be empty.' })
   readonly content: string;

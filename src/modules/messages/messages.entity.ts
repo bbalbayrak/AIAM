@@ -23,7 +23,16 @@ export class Message extends Model<Message> {
   @Column({ type: DataType.INTEGER, allowNull: false })
   sender_id: number;
   @BelongsTo(() => User)
-  user: User;
+  sender: User;
+
+  @ForeignKey(() => User)
+  @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+  })
+  receiver_id: number;
+  @BelongsTo(() => User)
+  reciever: User;
 
   @Column({
     type: DataType.TEXT,
