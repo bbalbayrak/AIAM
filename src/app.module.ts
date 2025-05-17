@@ -11,6 +11,7 @@ import { ProjectModule } from './modules/project/project.module';
 import { ProposalModule } from './modules/proposal/proposal.module';
 import { ContractModule } from './modules/contract/contract.module';
 import { MilestoneModule } from './modules/milestone/milestone.module';
+import { MessagesModule } from './modules/messages/messages.module';
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { MilestoneModule } from './modules/milestone/milestone.module';
     ProposalModule,
     ContractModule,
     MilestoneModule,
+    MessagesModule,
   ],
   controllers: [AppController],
   providers: [AppService],

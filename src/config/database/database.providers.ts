@@ -8,6 +8,7 @@ import { Project } from 'src/modules/project/project.entity';
 import { Proposal } from 'src/modules/proposal/proposal.entity';
 import { Contract } from 'src/modules/contract/contract.entity';
 import { Milestone } from 'src/modules/milestone/milestone.entity';
+import { Message } from 'src/modules/messages/messages.entity';
 
 export const databaseProviders = [
   {
@@ -37,6 +38,7 @@ export const databaseProviders = [
         Proposal,
         Contract,
         Milestone,
+        Message,
       ]);
 
       await sequelize.sync();
