@@ -5,6 +5,11 @@ import { MicroserviceOptions, Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.enableCors({
+    origin: '*',
+    credentials: true,
+  });
+
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -17,7 +22,7 @@ async function bootstrap() {
       urls: ['amqp://localhost:5672'],
       queue: 'messages_queue',
       queueOptions: {
-        durable: false,
+        durable: true,
       },
     },
   });

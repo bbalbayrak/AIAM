@@ -5,6 +5,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 import { MessageProvider } from './messages.provider';
 import { MessagesConsumer } from './messages.consumer';
 import { UserModule } from '../user/user.module';
+import { MessagesGateway } from './messages.gateway';
 
 @Module({
   imports: [
@@ -17,13 +18,18 @@ import { UserModule } from '../user/user.module';
           urls: ['amqp://localhost:5672'],
           queue: 'messages_queue',
           queueOptions: {
-            durable: false,
+            durable: true,
           },
         },
       },
     ]),
   ],
-  providers: [MessagesService, ...MessageProvider, MessagesConsumer],
+  providers: [
+    MessagesService,
+    ...MessageProvider,
+    MessagesConsumer,
+    MessagesGateway,
+  ],
   controllers: [MessagesController, MessagesConsumer],
   exports: [...MessageProvider],
 })

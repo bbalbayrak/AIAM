@@ -15,14 +15,33 @@ import { MessagesService } from './messages.service';
 import { MessageDto } from './dto/messages.dto';
 import { Request, Response } from 'express';
 import { JwtAuthGuard } from '../auth/passport/jwt.guard';
+import { MessagesGateway } from './messages.gateway';
+import { UserService } from '../user/user.service';
 @UseGuards(JwtAuthGuard)
 @Controller('messages')
 export class MessagesController {
-  constructor(private readonly messagesService: MessagesService) {}
+  constructor(
+    private readonly messagesService: MessagesService,
+    private readonly messageGateway: MessagesGateway,
+    private readonly userService: UserService,
+  ) {}
 
   @Post()
   async sendMessage(@Body() messageDto: MessageDto, @Res() res: Response) {
+    const reciever = await this.userService.getUserById(messageDto.receiver_id);
+
+    if (!reciever) {
+      return res.status(HttpStatus.NOT_FOUND).json({
+        message: 'Receiver not found',
+      });
+    }
+
     const message = await this.messagesService.sendMessage(messageDto);
+
+    await this.messageGateway.sendMessageToUser(
+      messageDto.receiver_id,
+      message,
+    );
     return res.status(HttpStatus.CREATED).json({
       message: 'Message sent successfully',
       data: message,
