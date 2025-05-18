@@ -12,6 +12,7 @@ import { ProposalModule } from './modules/proposal/proposal.module';
 import { ContractModule } from './modules/contract/contract.module';
 import { MilestoneModule } from './modules/milestone/milestone.module';
 import { MessagesModule } from './modules/messages/messages.module';
+import { ReviewModule } from './modules/review/review.module';
 
 @Module({
   imports: [
@@ -27,6 +28,7 @@ import { MessagesModule } from './modules/messages/messages.module';
     ContractModule,
     MilestoneModule,
     MessagesModule,
+    ReviewModule,
   ],
   controllers: [AppController],
   providers: [AppService],
