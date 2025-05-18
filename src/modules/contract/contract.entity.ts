@@ -12,6 +12,7 @@ import { Proposal } from '../proposal/proposal.entity';
 import { Business } from '../business/business.entity';
 import { Agency } from '../agency/agency.entity';
 import { Milestone } from '../milestone/milestone.entity';
+import { Review } from '../review/review.entity';
 
 export enum ContractStatus {
   ACTIVE = 'active',
@@ -87,4 +88,7 @@ export class Contract extends Model<Contract> {
 
   @HasMany(() => Milestone)
   milestones: Milestone[];
+
+  @HasMany(() => Review)
+  reviews: Review[];
 }

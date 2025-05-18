@@ -3,6 +3,7 @@ import { UserStatus, UserType } from './userType';
 import { UserService } from './user.service';
 import { Agency } from '../agency/agency.entity';
 import { Business } from '../business/business.entity';
+import { Review } from '../review/review.entity';
 
 @Table
 export class User extends Model<User> {
@@ -71,4 +72,7 @@ export class User extends Model<User> {
 
   @HasMany(() => Business)
   businesses: Business[];
+
+  @HasMany(() => Review)
+  reviews: Review[];
 }

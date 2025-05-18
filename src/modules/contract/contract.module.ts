@@ -10,5 +10,6 @@ import { MilestoneModule } from '../milestone/milestone.module';
   imports: [ProposalModule, MessagesModule, MilestoneModule],
   providers: [ContractService, ...ContractProvider],
   controllers: [ContractController],
+  exports: [ContractService],
 })
 export class ContractModule {}
