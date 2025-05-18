@@ -14,7 +14,7 @@ export class ContractService {
   constructor(
     @Inject(CONTRACT_REPOSITORY)
     private readonly contractRepository: typeof Contract,
-    private readonly proposalRepository: ProposalService,
+    private readonly proposalService: ProposalService,
   ) {}
 
   async getAllContracts(): Promise<Contract[]> {
@@ -31,7 +31,7 @@ export class ContractService {
   async createContractAccepted(contractDto: ContractDto): Promise<Contract> {
     const { start_date, end_date, proposal_id } = contractDto;
     const isProposalAccepted =
-      await this.proposalRepository.getProposalById(proposal_id);
+      await this.proposalService.getProposalById(proposal_id);
 
     if (isProposalAccepted.status !== 'accepted') {
       throw new BadRequestException(
@@ -71,7 +71,7 @@ export class ContractService {
     return contract;
   }
 
-  //async getContractMilestones(){}
+  async getContractMilestones() {}
 
   //async getContractMessages(){}
 }
