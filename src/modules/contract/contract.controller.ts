@@ -77,4 +77,36 @@ export class ContractController {
       data: contract,
     });
   }
+
+  @Get(':id/milestones')
+  async getContractMilestones(
+    @Param('id', ParseIntPipe) id: number,
+    @Res() res: Response,
+  ) {
+    const milestones = await this.contractService.getContractMilestones(id);
+    if (!milestones || milestones.length === 0) {
+      throw new NotFoundException(`No milestones found for contract ID ${id}`);
+    }
+
+    return res.status(HttpStatus.OK).json({
+      message: 'Milestones retrieved successfully',
+      data: milestones,
+    });
+  }
+
+  @Get(':id/messages')
+  async getContractMessages(
+    @Param('id', ParseIntPipe) id: number,
+    @Res() res: Response,
+  ) {
+    const messages = await this.contractService.getContractMessages(id);
+    if (!messages || messages.length === 0) {
+      throw new NotFoundException(`No messages found for contract ID ${id}`);
+    }
+
+    return res.status(HttpStatus.OK).json({
+      message: 'Messages retrieved successfully',
+      data: messages,
+    });
+  }
 }

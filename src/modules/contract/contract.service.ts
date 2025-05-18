@@ -8,6 +8,8 @@ import { CONTRACT_REPOSITORY } from 'src/config/constants';
 import { Contract } from './contract.entity';
 import { ContractDto } from './dto/contract.dto';
 import { ProposalService } from '../proposal/proposal.service';
+import { MilestoneService } from '../milestone/milestone.service';
+import { MessagesService } from '../messages/messages.service';
 
 @Injectable()
 export class ContractService {
@@ -15,6 +17,8 @@ export class ContractService {
     @Inject(CONTRACT_REPOSITORY)
     private readonly contractRepository: typeof Contract,
     private readonly proposalService: ProposalService,
+    private readonly milestoneService: MilestoneService,
+    private readonly messageService: MessagesService,
   ) {}
 
   async getAllContracts(): Promise<Contract[]> {
@@ -71,7 +75,27 @@ export class ContractService {
     return contract;
   }
 
-  async getContractMilestones() {}
+  async getContractMilestones(contractId: number) {
+    const milestones =
+      await this.milestoneService.getMilestonesByContractId(contractId);
 
-  //async getContractMessages(){}
+    if (!milestones || milestones.length === 0) {
+      throw new NotFoundException(
+        `No milestones found for contract ID ${contractId}`,
+      );
+    }
+    return milestones;
+  }
+
+  async getContractMessages(contractId: number) {
+    const messages =
+      await this.messageService.getMessagesByConversation(contractId);
+
+    if (!messages || messages.length === 0) {
+      throw new NotFoundException(
+        `No messages found for contract ID ${contractId}`,
+      );
+    }
+    return messages;
+  }
 }

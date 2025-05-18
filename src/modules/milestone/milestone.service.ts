@@ -47,5 +47,17 @@ export class MilestoneService {
     return milestone;
   }
 
+  async getMilestonesByContractId(contract_id: number): Promise<Milestone[]> {
+    const milestones = await this.milestoneRepository.findAll<Milestone>({
+      where: { contract_id },
+    });
+    if (!milestones || milestones.length === 0) {
+      throw new NotFoundException(
+        `No milestones found for contract ID ${contract_id}`,
+      );
+    }
+    return milestones;
+  }
+
   //async payMilestone(id: number) {}
 }
