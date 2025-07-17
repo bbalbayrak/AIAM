@@ -36,6 +36,12 @@ export class Project extends Model<Project> {
   })
   budget_range: string;
   @Column({
+    type: DataType.INTEGER,
+    allowNull: false,
+  })
+  estimated_hours: number;
+
+  @Column({
     type: DataType.STRING,
     allowNull: false,
   })

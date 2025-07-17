@@ -26,6 +26,10 @@ export class ProjectDto {
   @IsNotEmpty({ message: 'Budget range is required' })
   readonly budget_range: string;
 
+  @IsNumber({}, { message: 'Estimated hours must be a number' })
+  @IsNotEmpty({ message: 'Estimated hours is required' })
+  readonly estimated_hours: number;
+
   @IsString({ message: 'Timeline must be a string' })
   @IsNotEmpty({ message: 'Timeline is required' })
   readonly timeline: string;

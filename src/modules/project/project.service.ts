@@ -81,7 +81,7 @@ export class ProjectService {
       10,
     );
 
-    const estimatedHours = 160;
+    const estimatedHours = project.estimated_hours || 0;
 
     const hourlyBudget = totalBudget / estimatedHours;
 
