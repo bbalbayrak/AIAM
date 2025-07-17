@@ -1,5 +1,22 @@
+node_modules
+npm-debug.log
+
+dist
+build
+
+.git
+.gitignore
+
+.vscode
+.idea
+*.swp
+*.swo
+
+.DS_Store
+Thumbs.db
+
+# Test coverage
+coverage
+
 .env
-/node_modules
-/dist
-docker-compose.yml
-Dockerfile
+.env.test
