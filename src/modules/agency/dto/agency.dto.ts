@@ -12,6 +12,10 @@ export class AgencyDto {
   @IsNumber({}, { message: 'User ID must be a number' })
   readonly user_id: number;
 
+  @IsNotEmpty({ message: 'Agency name is required' })
+  @IsString({ message: 'Agency name must be a string' })
+  readonly agency_name: string;
+
   @IsOptional()
   @IsObject({ message: 'Expertise tags must be an object' })
   readonly expertise_tags?: Record<string, any>;

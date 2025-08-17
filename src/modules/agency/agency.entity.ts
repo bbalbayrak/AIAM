@@ -23,6 +23,12 @@ export class Agency extends Model<Agency> {
   user: User;
 
   @Column({
+    type: DataType.STRING,
+    allowNull: false,
+  })
+  agency_name: string;
+
+  @Column({
     type: DataType.JSONB,
     allowNull: true,
   })
