@@ -13,6 +13,7 @@ import { ContractModule } from './modules/contract/contract.module';
 import { MilestoneModule } from './modules/milestone/milestone.module';
 import { MessagesModule } from './modules/messages/messages.module';
 import { ReviewModule } from './modules/review/review.module';
+import { PaymentsModule } from './modules/payments/payments.module';
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { ReviewModule } from './modules/review/review.module';
     MilestoneModule,
     MessagesModule,
     ReviewModule,
+    PaymentsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
