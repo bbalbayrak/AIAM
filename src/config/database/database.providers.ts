@@ -11,6 +11,7 @@ import { Milestone } from 'src/modules/milestone/milestone.entity';
 import { Message } from 'src/modules/messages/messages.entity';
 import { Review } from 'src/modules/review/review.entity';
 import { Payment } from 'src/modules/payments/payments.entity';
+import { PaymentMethod } from 'src/modules/payment-methods/payment-methods.entity';
 
 export const databaseProviders = [
   {
@@ -43,6 +44,7 @@ export const databaseProviders = [
         Message,
         Review,
         Payment,
+        PaymentMethod,
       ]);
 
       await sequelize.sync();

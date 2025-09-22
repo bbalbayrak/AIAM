@@ -4,6 +4,8 @@ import { UserService } from './user.service';
 import { Agency } from '../agency/agency.entity';
 import { Business } from '../business/business.entity';
 import { Review } from '../review/review.entity';
+import { Payment } from '../payments/payments.entity';
+import { PaymentMethod } from '../payment-methods/payment-methods.entity';
 
 @Table
 export class User extends Model<User> {
@@ -75,4 +77,10 @@ export class User extends Model<User> {
 
   @HasMany(() => Review)
   reviews: Review[];
+
+  @HasMany(() => Payment)
+  payments: Payment[];
+
+  @HasMany(() => PaymentMethod)
+  paymentMethods: PaymentMethod[];
 }

@@ -14,6 +14,7 @@ import { MilestoneModule } from './modules/milestone/milestone.module';
 import { MessagesModule } from './modules/messages/messages.module';
 import { ReviewModule } from './modules/review/review.module';
 import { PaymentsModule } from './modules/payments/payments.module';
+import { PaymentMethodsModule } from './modules/payment-methods/payment-methods.module';
 
 @Module({
   imports: [
@@ -31,6 +32,7 @@ import { PaymentsModule } from './modules/payments/payments.module';
     MessagesModule,
     ReviewModule,
     PaymentsModule,
+    PaymentMethodsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
