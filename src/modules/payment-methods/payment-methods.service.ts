@@ -37,7 +37,7 @@ export class PaymentMethodsService {
   }
 
   async findAllByUser(userId: number): Promise<PaymentMethod[]> {
-    return this.paymentMethodRepository.findAll({ where: { user_id: userId } }); // 👈
+    return this.paymentMethodRepository.findAll({ where: { user_id: userId } });
   }
 
   async findOne(id: number, userId: number): Promise<PaymentMethod> {
