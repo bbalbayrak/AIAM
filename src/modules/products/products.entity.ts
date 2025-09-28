@@ -1,5 +1,5 @@
 import { Column, DataType, HasMany, Model, Table } from 'sequelize-typescript';
-// import { Price } from '../prices/prices.entity';
+import { Prices } from '../prices/prices.entity';
 
 @Table
 export class Products extends Model<Products> {
@@ -28,6 +28,6 @@ export class Products extends Model<Products> {
   })
   description: string;
 
-  // @HasMany(() => Price)
-  // prices: Price[];
+  @HasMany(() => Prices)
+  prices: Prices[];
 }
