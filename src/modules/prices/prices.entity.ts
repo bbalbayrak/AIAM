@@ -8,6 +8,7 @@ import {
   HasMany,
 } from 'sequelize-typescript';
 import { Products } from '../products/products.entity';
+import { Subscriptions } from '../subscriptions/subscriptions.entity';
 
 export enum PricingType {
   ONE_TIME = 'one_time',
@@ -93,6 +94,6 @@ export class Prices extends Model<Prices> {
   })
   type: PlanType;
 
-  //   @HasMany(() => Subscription)
-  //   subscriptions: Subscription[];
+  @HasMany(() => Subscriptions)
+  subscriptions: Subscriptions[];
 }
