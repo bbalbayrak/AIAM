@@ -15,6 +15,7 @@ import { PaymentMethod } from 'src/modules/payment-methods/payment-methods.entit
 import { Products } from 'src/modules/products/products.entity';
 import { Prices } from 'src/modules/prices/prices.entity';
 import { Subscriptions } from 'src/modules/subscriptions/subscriptions.entity';
+import { Invoices } from 'src/modules/invoices/invoices.entity';
 
 export const databaseProviders = [
   {
@@ -51,6 +52,7 @@ export const databaseProviders = [
         Products,
         Prices,
         Subscriptions,
+        Invoices,
       ]);
 
       await sequelize.sync();

@@ -18,6 +18,7 @@ import { PaymentMethodsModule } from './modules/payment-methods/payment-methods.
 import { ProductsModule } from './modules/products/products.module';
 import { PricesModule } from './modules/prices/prices.module';
 import { SubscriptionsModule } from './modules/subscriptions/subscriptions.module';
+import { InvoicesModule } from './modules/invoices/invoices.module';
 
 @Module({
   imports: [
@@ -39,6 +40,7 @@ import { SubscriptionsModule } from './modules/subscriptions/subscriptions.modul
     ProductsModule,
     PricesModule,
     SubscriptionsModule,
+    InvoicesModule,
   ],
   controllers: [AppController],
   providers: [AppService],
