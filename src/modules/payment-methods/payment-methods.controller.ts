@@ -24,7 +24,7 @@ import { UpdatePaymentMethodDto } from './dto/updatePayment-methods.dto';
 export class PaymentMethodsController {
   constructor(private readonly paymentMethodsService: PaymentMethodsService) {}
 
-  @Post()
+  @Post('create')
   async create(
     @Body() createDto: CreatePaymentMethodDto,
     @Req() req: Request,
@@ -42,7 +42,7 @@ export class PaymentMethodsController {
     });
   }
 
-  @Get()
+  @Get('all')
   async findAll(@Req() req: Request, @Res() res: Response) {
     const userId = req.user['userId'];
 
@@ -74,7 +74,6 @@ export class PaymentMethodsController {
     });
   }
 
-  // 🔹 Güncelle
   @Put(':id')
   async update(
     @Param('id', ParseIntPipe) id: number,
