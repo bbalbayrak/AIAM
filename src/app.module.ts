@@ -19,6 +19,7 @@ import { ProductsModule } from './modules/products/products.module';
 import { PricesModule } from './modules/prices/prices.module';
 import { SubscriptionsModule } from './modules/subscriptions/subscriptions.module';
 import { InvoicesModule } from './modules/invoices/invoices.module';
+import { StripeModule } from './modules/stripe/stripe.module';
 
 @Module({
   imports: [
@@ -41,6 +42,7 @@ import { InvoicesModule } from './modules/invoices/invoices.module';
     PricesModule,
     SubscriptionsModule,
     InvoicesModule,
+    StripeModule,
   ],
   controllers: [AppController],
   providers: [AppService],

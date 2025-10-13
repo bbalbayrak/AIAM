@@ -32,6 +32,11 @@ export class PaymentsService {
           payerId: dto.payer_id,
           payeeId: dto.payee_id,
         },
+        //changes after frontend implementation
+        automatic_payment_methods: {
+          enabled: true,
+          allow_redirects: 'never',
+        },
       });
       stripePaymentIntentId = intent.id;
     }
@@ -66,31 +71,96 @@ export class PaymentsService {
     status: PaymentStatus,
   ): Promise<Payment> {
     const payment = await this.findPaymentById(id);
-    payment.payment_status = status;
+
+    if (payment.payment_method === 'Stripe' && payment.stripe_transaction_id) {
+      const intent = await this.stripe.paymentIntents.retrieve(
+        payment.stripe_transaction_id,
+      );
+      if (status === PaymentStatus.COMPLETED && intent.status !== 'succeeded') {
+        const confirmedIntent = await this.stripe.paymentIntents.confirm(
+          payment.stripe_transaction_id,
+          {
+            payment_method: 'pm_card_visa',
+          },
+        );
+
+        if (confirmedIntent.status === 'succeeded') {
+          payment.payment_status = PaymentStatus.COMPLETED;
+        } else {
+          payment.payment_status = PaymentStatus.FAILED;
+        }
+      } else if (
+        status === PaymentStatus.CANCELLED &&
+        intent.status !== 'canceled'
+      ) {
+        await this.stripe.paymentIntents.cancel(payment.stripe_transaction_id);
+        payment.payment_status = PaymentStatus.CANCELLED;
+      }
+    } else {
+      payment.payment_status = status;
+    }
+
     await payment.save();
     return payment;
   }
+
+  // async refundPayment(id: number, amount?: number): Promise<Payment> {
+  //   const payment = await this.findPaymentById(id);
+
+  //   if (payment.payment_method === 'Stripe' && payment.stripe_transaction_id) {
+  //     await this.stripe.refunds.create({
+  //       payment_intent: payment.stripe_transaction_id,
+  //       amount: amount ? Math.round(amount * 100) : undefined,
+  //     });
+  //   }
+
+  //   payment.refund_status = amount
+  //     ? RefundStatus.PARTIALLY_REFUNDED
+  //     : RefundStatus.REFUNDED;
+
+  //   if (amount) {
+  //     payment.refund_amount = amount;
+  //   } else {
+  //     payment.refund_amount = payment.amount;
+  //   }
+
+  //   payment.payment_status = PaymentStatus.REFUNDED;
+
+  //   await payment.save();
+  //   return payment;
+  // }
 
   async refundPayment(id: number, amount?: number): Promise<Payment> {
     const payment = await this.findPaymentById(id);
 
     if (payment.payment_method === 'Stripe' && payment.stripe_transaction_id) {
+      // PaymentIntent'i al
+      const intent = await this.stripe.paymentIntents.retrieve(
+        payment.stripe_transaction_id,
+      );
+
+      // latest_charge kontrolü
+      const chargeId = intent.latest_charge as string | undefined;
+
+      if (!chargeId) {
+        throw new Error(
+          'Payment has no successful charge. Refund not possible.',
+        );
+      }
+
+      // Refund oluştur
       await this.stripe.refunds.create({
-        payment_intent: payment.stripe_transaction_id,
+        charge: chargeId,
         amount: amount ? Math.round(amount * 100) : undefined,
       });
     }
 
+    // DB tarafını güncelle
     payment.refund_status = amount
       ? RefundStatus.PARTIALLY_REFUNDED
       : RefundStatus.REFUNDED;
 
-    if (amount) {
-      payment.refund_amount = amount;
-    } else {
-      payment.refund_amount = payment.amount;
-    }
-
+    payment.refund_amount = amount ?? payment.amount;
     payment.payment_status = PaymentStatus.REFUNDED;
 
     await payment.save();
