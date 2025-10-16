@@ -6,6 +6,7 @@ import {
   HttpStatus,
   NotFoundException,
   Param,
+  ParseIntPipe,
   Post,
   Put,
   Res,
@@ -77,6 +78,18 @@ export class PricesController {
     return res.status(HttpStatus.OK).json({
       message: 'Price Successfully Updated !',
       data: updatedPrice,
+    });
+  }
+
+  @Put('activate/:id')
+  async activatePrice(
+    @Param('id', ParseIntPipe) id: string,
+    @Res() res: Response,
+  ) {
+    const activatedPrice = await this.pricesService.activatePrice(id);
+    return res.status(HttpStatus.OK).json({
+      message: 'Price Successfully Activated !',
+      data: activatedPrice,
     });
   }
 

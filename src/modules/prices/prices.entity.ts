@@ -36,18 +36,12 @@ export class Prices extends Model<Prices> {
   })
   priceId: string;
 
-  @Column({
-    type: DataType.INTEGER,
-    allowNull: false,
-  })
-  productId: number;
-
   @ForeignKey(() => Products)
   @Column({
     type: DataType.INTEGER,
     allowNull: false,
   })
-  product: number;
+  productId: number;
 
   @BelongsTo(() => Products)
   products: Products;
@@ -93,6 +87,13 @@ export class Prices extends Model<Prices> {
     allowNull: false,
   })
   type: PlanType;
+
+  @Column({
+    type: DataType.BOOLEAN,
+    allowNull: false,
+    defaultValue: true,
+  })
+  active: boolean;
 
   @HasMany(() => Subscriptions)
   subscriptions: Subscriptions[];

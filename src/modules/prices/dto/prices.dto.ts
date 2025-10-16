@@ -1,4 +1,5 @@
 import {
+  IsBoolean,
   IsEnum,
   IsNotEmpty,
   IsNumber,
@@ -9,10 +10,6 @@ import {
 import { PricingType, PricingPlanInterval, PlanType } from '../prices.entity';
 
 export class CreatePriceDto {
-  @IsString()
-  @IsNotEmpty()
-  priceId: string;
-
   @IsNumber()
   @IsNotEmpty()
   productId: number;
@@ -24,11 +21,10 @@ export class CreatePriceDto {
   @IsNumber()
   @Min(1)
   unitAmount: number;
-  x;
 
   @IsString()
   @IsNotEmpty()
-  currency: string; // örn. "usd"
+  currency: string;
 
   @IsEnum(PricingType)
   pricingType: PricingType;
@@ -43,4 +39,8 @@ export class CreatePriceDto {
 
   @IsEnum(PlanType)
   type: PlanType;
+
+  @IsBoolean()
+  @IsOptional()
+  active?: boolean;
 }
