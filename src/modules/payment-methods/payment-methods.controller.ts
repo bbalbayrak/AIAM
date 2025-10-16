@@ -24,18 +24,38 @@ import { UpdatePaymentMethodDto } from './dto/updatePayment-methods.dto';
 export class PaymentMethodsController {
   constructor(private readonly paymentMethodsService: PaymentMethodsService) {}
 
-  @Post('create')
-  async create(
-    @Body() createDto: CreatePaymentMethodDto,
-    @Req() req: Request,
-    @Res() res: Response,
-  ) {
-    const userId = req.user['userId'];
+  // @Post('create')
+  // async create(
+  //   @Body() createDto: CreatePaymentMethodDto,
+  //   @Req() req: Request,
+  //   @Res() res: Response,
+  // ) {
+  //   const userId = req.user['userId'];
 
-    const newMethod = await this.paymentMethodsService.create(
-      createDto,
-      userId,
-    );
+  //   const newMethod = await this.paymentMethodsService.create(
+  //     createDto,
+  //     userId,
+  //   );
+  //   return res.status(HttpStatus.CREATED).json({
+  //     message: 'Payment method created successfully',
+  //     data: newMethod,
+  //   });
+  // }
+
+  @Post('create')
+  async createPaymentMethod(
+    @Res() res: Response,
+    @Req() req: Request,
+    @Body() dto: CreatePaymentMethodDto,
+  ) {
+    const { token } = req.body;
+    const userId = req.user['userId'];
+    const newMethod =
+      await this.paymentMethodsService.createPaymentMethodWithoutClientSide(
+        userId,
+        dto,
+        token,
+      );
     return res.status(HttpStatus.CREATED).json({
       message: 'Payment method created successfully',
       data: newMethod,

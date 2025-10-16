@@ -8,9 +8,10 @@ export class CreatePaymentMethodDto {
   provider: string;
 
   @IsString()
-  @IsNotEmpty({
-    message: 'Method ID is required (e.g., Stripe PM_xxx, PayPal Billing ID)',
-  })
+  // @IsNotEmpty({
+  //   message: 'Method ID is required (e.g., Stripe PM_xxx, PayPal Billing ID)',
+  // })
+  @IsOptional()
   method_id: string;
 
   @IsString()

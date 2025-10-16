@@ -27,6 +27,11 @@ export class User extends Model<User> {
   userType: UserType;
   @Column({
     type: DataType.STRING,
+    allowNull: true,
+  })
+  stripe_customer_id?: string;
+  @Column({
+    type: DataType.STRING,
     allowNull: false,
   })
   companyName: string;
