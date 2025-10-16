@@ -12,7 +12,9 @@ export class ProductsService {
     @Inject(PRODUCTS_REPOSITORY)
     private readonly productsRepository: typeof Products,
   ) {
-    this.stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+    this.stripe = new Stripe(process.env.STRIPE_SECRET_KEY, {
+      apiVersion: '2025-08-27.basil',
+    });
   }
 
   async createProduct(dto: ProductDto): Promise<Products> {
@@ -68,5 +70,15 @@ export class ProductsService {
     const product = await this.productsRepository.findByPk(id);
     await this.stripe.products.update(product.product_id, { active: false });
     await product.destroy();
+  }
+
+  async deactiveProduct(id: string): Promise<Products> {
+    const product = await this.productsRepository.findByPk(id);
+    if (!product) {
+      throw new NotFoundException(`Product with ID ${id} not found`);
+    }
+    await this.stripe.products.update(product.product_id, { active: false });
+    await product.update({ active: false });
+    return product;
   }
 }

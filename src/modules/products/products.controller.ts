@@ -36,7 +36,7 @@ export class ProductsController {
     });
   }
 
-  @Get('id')
+  @Get(':id')
   async getProductsById(
     @Param('id', ParseIntPipe) id: string,
     @Res() res: Response,
@@ -84,6 +84,19 @@ export class ProductsController {
 
     return res.status(HttpStatus.CREATED).json({
       message: 'Product Successfully Updated !',
+      data: product,
+    });
+  }
+
+  @Put('deactive/:id')
+  async deactiveProduct(
+    @Param('id', ParseIntPipe) id: string,
+    @Res() res: Response,
+  ) {
+    const product = await this.productsService.deactiveProduct(id);
+
+    return res.status(HttpStatus.OK).json({
+      message: 'Product Successfully Deactivated !',
       data: product,
     });
   }
